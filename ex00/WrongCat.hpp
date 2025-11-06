@@ -1,0 +1,14 @@
+#pragma once
+
+#include "WrongAnimal.hpp"
+
+class WrongCat : public WrongAnimal
+{
+public:
+    WrongCat();
+    ~WrongCat();
+    WrongCat (const WrongCat&);
+    WrongCat &operator=(const WrongCat&);
+    void makeSound() const ;
+    std::string getType( void ) const;
+};
