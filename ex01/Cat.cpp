@@ -21,10 +21,12 @@ Cat::Cat(const Cat &copy) : Animal(copy)
 
 Cat &Cat::operator=(const Cat &src)
 {
-    if (this != &src)
+	if (this != &src)
 	{
         this->type = src.type;
-		this->brain = new Brain;
+		if (this->brain != NULL)
+			delete this->brain;
+		this->brain = new Brain();
 	}
     return (*this);
 }
