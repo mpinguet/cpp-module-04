@@ -14,5 +14,5 @@ public:
     Dog &operator=(const Dog&);
     void makeSound() const;
     std::string getType( void ) const;
-
+	Brain *GetBrain(void) const;
 };

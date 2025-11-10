@@ -1,60 +1,54 @@
-// main.cpp
-#include <iostream>
-#include "Animal.hpp"
-#include "Dog.hpp"
 #include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
+#include "Dog.hpp"
+#include <iostream>
 
 int main()
 {
-    std::cout << "=== Basic polymorphism ===" << std::endl;
-    const Animal* meta = new Animal();
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
+    std::cout << "----- TEST 1: construction & makeSound -----" << std::endl;
+    Animal* dog = new Dog();
+    Animal* cat = new Cat();
 
-    std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << " " << std::endl;
+    std::cout << dog->getType() << " says: ";
+    dog->makeSound();
 
-    i->makeSound(); // should call Cat::makeSound
-    j->makeSound(); // should call Dog::makeSound
-    meta->makeSound(); // Animal sound
+    std::cout << cat->getType() << " says: ";
+    cat->makeSound();
 
-    delete meta;
-    delete j;
-    delete i;
+    delete dog;
+    delete cat;
 
-    std::cout << std::endl << "=== Array of animals (polymorphism) ===" << std::endl;
-    const Animal* animals[4];
-    for (int k = 0; k < 4; ++k)
-    {
-        if (k % 2 == 0)
-            animals[k] = new Dog();
+    std::cout << "\n----- TEST 2: deep copy Brain -----" << std::endl;
+    Cat* c1 = new Cat();
+    c1->GetBrain()->SetIdeas(0, "I want fish");
+    c1->GetBrain()->SetIdeas(1, "I want sleep");
+
+    Cat* c2 = new Cat(*c1); // copy constructor (deep copy)
+    c1->GetBrain()->SetIdeas(0, "Changed idea");
+
+    std::cout << "c1 idea 0: " << c1->GetBrain()->GetIdeas(0) << std::endl;
+    std::cout << "c2 idea 0: " << c2->GetBrain()->GetIdeas(0) << std::endl;
+
+    delete c1;
+    delete c2;
+
+    std::cout << "\n----- TEST 3: tableau d'Animal* -----" << std::endl;
+    const int SIZE = 4;
+    Animal* animals[SIZE];
+
+    for (int i = 0; i < SIZE; ++i) {
+        if (i % 2 == 0)
+            animals[i] = new Dog();
         else
-            animals[k] = new Cat();
+            animals[i] = new Cat();
     }
 
-    for (int k = 0; k < 4; ++k)
-    {
-        std::cout << "[" << k << "] type: " << animals[k]->getType() << " -> ";
-        animals[k]->makeSound();
+    for (int i = 0; i < SIZE; ++i) {
+        std::cout << animals[i]->getType() << " says: ";
+        animals[i]->makeSound();
     }
 
-    for (int k = 0; k < 4; ++k)
-        delete animals[k];
-
-    std::cout << std::endl << "=== Wrong classes: no virtual => wrong behavior ===" << std::endl;
-    const WrongAnimal* wmeta = new WrongAnimal();
-    const WrongAnimal* wcat = new WrongCat();
-
-    std::cout << wcat->getType() << " " << std::endl;
-    wcat->makeSound(); // WILL call WrongAnimal::makeSound because not virtual
-    wmeta->makeSound();
-
-    // Deleting via base pointer: WrongCat destructor WILL NOT be called if WrongAnimal::~WrongAnimal is not virtual
-    delete wcat;
-    delete wmeta;
+    for (int i = 0; i < SIZE; ++i)
+        delete animals[i];
 
     return 0;
 }
-

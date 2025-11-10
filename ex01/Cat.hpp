@@ -14,4 +14,5 @@ public:
     Cat &operator=(const Cat&);
     void makeSound() const ;
     std::string getType( void ) const;
+	Brain *GetBrain(void) const;
 };

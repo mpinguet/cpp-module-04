@@ -16,10 +16,15 @@ Dog::Dog(const Dog &copy) : Animal(copy)
 {
     std::cout << "A Dog was constructed from copy" << std::endl;
     this->type = copy.type;
+	if (copy.brain)
+		this->brain = new Brain(*copy.brain);
+	else
+		this->brain = new Brain();
 }
 
 Dog &Dog::operator=(const Dog &src)
 {
+	std::cout << "Dog assignment operator called" << std::endl;
     if (this != &src)
 	{
         this->type = src.type;
@@ -37,4 +42,9 @@ std::string Dog::getType( void ) const
 void Dog::makeSound() const
 {
     std::cout << "Ouaf" << std::endl;
+}
+
+Brain *Dog::GetBrain(void) const
+{
+	return (this->brain);
 }

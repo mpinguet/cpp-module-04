@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 class Brain
 {
@@ -11,4 +12,6 @@ public:
 	~Brain();
 	Brain(const Brain&);
 	Brain& operator=(const Brain &);
+	std::string GetIdeas(int) const;
+	void SetIdeas(int, const std::string&);
 };

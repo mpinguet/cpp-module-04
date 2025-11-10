@@ -5,7 +5,8 @@ SOURCES = main.cpp\
 	Cat.cpp\
 	Animal.cpp\
 	WrongAnimal.cpp\
-	WrongCat.cpp
+	WrongCat.cpp\
+	Brain.cpp
 
 GCC = c++
 
