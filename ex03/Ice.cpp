@@ -1,7 +1,6 @@
 #include "Ice.hpp"
 
-Ice::Ice()
+Ice::Ice() : AMateria("ice")
 {
-	std::cout << "Ice was constructed from default" << std::endl;
-	this->type = "ice";
+	std::cout << "a Ice was constructed from default" << std::endl;
 }
